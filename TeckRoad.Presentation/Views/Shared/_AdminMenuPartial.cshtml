@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TeckRoad.DataService
+@using TeckRoad.Entities.DbSets;
+
+@inject SignInManager<AppUser> _signinManager
+@inject UserManager<AppUser> _userManager
+
+@if(_signinManager.IsSignedIn(User) && await _userManager.IsInRoleAsync(_userManager.GetUserAsync(User).Result, "admin"))
+{
+    <li class="nav-item dropdown show">
+        <a class="dropdown-toggle nav-link text-dark" href="#" data-bs-toggle="dropdown">Admin</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+            <a class="dropdown-item" href="#">Users to Categories</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="MediaType" asp-action="Index">Media Types</a>
+        </div>
+    </li>
+}
